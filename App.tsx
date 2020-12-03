@@ -5,14 +5,16 @@ import { ThemeProvider } from "@shopify/restyle";
 
 import { Onboarding, Welcome } from "./src/Authentication";
 import { LoadAssets, theme } from "./src/components";
+import { AuthRoutes } from "./src/components/Navigation";
 
 const fonts = {
-  "SFProText-Bold": require("./assets/fonts/SF-Pro-Text-Bold.ttf"),
-  "SFProText-Semibold": require("./assets/fonts/SF-Pro-Text-Semibold.ttf"),
-  "SFProText-Regular": require("./assets/fonts/SF-Pro-Text-Regular.ttf"),
+  "SFProDisplay-Bold": require("./assets/fonts/SFProDisplay-Bold.ttf"),
+  "SFProDisplay-Semibold": require("./assets/fonts/SFProDisplay-Semibold.ttf"),
+  "SFProDisplay-Medium": require("./assets/fonts/SFProDisplay-Medium.ttf"),
+  "SFProDisplay-Regular": require("./assets/fonts/SFProDisplay-Regular.ttf"),
 };
 
-const AuthenticationStack = createStackNavigator();
+const AuthenticationStack = createStackNavigator<AuthRoutes>();
 const AuthenticationNavigator = () => {
   return (
     <AuthenticationStack.Navigator headerMode="none">

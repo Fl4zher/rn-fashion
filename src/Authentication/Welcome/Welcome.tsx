@@ -1,13 +1,17 @@
 import React from "react";
 import { View, Text } from "react-native";
 
-interface Props {}
+import { Box } from "../../components";
+
+interface Props { }
 
 const Welcome = (props: Props) => {
   return (
-    <View>
-      <Text>Welcome</Text>
-    </View>
+    <Box flex={1}>
+      <Box flex={1} borderBottomRightRadius="xl" backgroundColor="lightGrey" />
+      <Text>TEST</Text>
+      <Box flex={1} borderTopLeftRadius="xl" />
+    </Box>
   );
 };
 
