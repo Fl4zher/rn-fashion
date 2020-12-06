@@ -14,6 +14,7 @@ import { AuthRoutes, StackNavigationProps } from "../../components/Navigation";
 import Slide, { SLIDE_HEIGHT } from "./Slide";
 import Subslide from "./Subslide";
 import Dot from "./Dot";
+
 const { width } = Dimensions.get("window");
 
 const styles = StyleSheet.create({
@@ -24,7 +25,7 @@ const styles = StyleSheet.create({
   slider: {
     height: SLIDE_HEIGHT,
     backgroundColor: "cyan",
-    borderBottomRightRadius: theme.borderRadius.xl,
+    borderBottomRightRadius: theme.borderRadii.xl,
   },
   footer: {
     flex: 1,
@@ -32,11 +33,11 @@ const styles = StyleSheet.create({
   footerContent: {
     flex: 1,
     backgroundColor: "white",
-    borderTopLeftRadius: theme.borderRadius.xl,
+    borderTopLeftRadius: theme.borderRadii.xl,
   },
   pagination: {
     ...StyleSheet.absoluteFillObject,
-    height: theme.borderRadius.xl,
+    height: theme.borderRadii.xl,
     justifyContent: "center",
     alignItems: "center",
     flexDirection: "row",
@@ -46,7 +47,7 @@ const styles = StyleSheet.create({
     ...StyleSheet.absoluteFillObject,
     alignItems: "center",
     justifyContent: "flex-end",
-    borderBottomRightRadius: theme.borderRadius.xl,
+    borderBottomRightRadius: theme.borderRadii.xl,
     overflow: "hidden",
   },
 });
@@ -59,7 +60,7 @@ const slides = [
       "Confused about your outfit? Don't worry! Find the best outfit here!",
     color: "#BFEAF5",
     picture: {
-      src: require("./assets/1.png"),
+      src: require("../assets/1.png"),
       width: 877,
       height: 1000,
     },
@@ -71,7 +72,7 @@ const slides = [
       "Heating the clothes in your wardrobe? Explore hundreds of outfit ideas",
     color: "#BEECC4",
     picture: {
-      src: require("./assets/2.png"),
+      src: require("../assets/2.png"),
       width: 1261,
       height: 883,
     },
@@ -83,7 +84,7 @@ const slides = [
       "Create your individual & unique style and look amazing everyday",
     color: "#FFE4D9",
     picture: {
-      src: require("./assets/3.png"),
+      src: require("../assets/3.png"),
       width: 1024,
       height: 681,
     },
@@ -95,12 +96,14 @@ const slides = [
       "Discover the latest trends in fashion and explore your personality",
     color: "#FFDDDD",
     picture: {
-      src: require("./assets/4.png"),
+      src: require("../assets/4.png"),
       width: 981,
       height: 879,
     },
   },
 ];
+
+export const assets = slides.map((slice) => slice.picture.src);
 
 const Onboarding = ({
   navigation,
@@ -130,9 +133,9 @@ const Onboarding = ({
               <Image
                 source={picture.src}
                 style={{
-                  width: width - theme.borderRadius.xl,
+                  width: width - theme.borderRadii.xl,
                   height:
-                    ((width - theme.borderRadius.xl) * picture.height) /
+                    ((width - theme.borderRadii.xl) * picture.height) /
                     picture.width,
                 }}
               />

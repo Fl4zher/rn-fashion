@@ -1,11 +1,15 @@
 import "react-native-gesture-handler";
 import * as React from "react";
-import { createStackNavigator } from "@react-navigation/stack";
 import { ThemeProvider } from "@shopify/restyle";
+import { SafeAreaProvider } from "react-native-safe-area-context";
 
-import { Onboarding, Welcome } from "./src/Authentication";
-import { LoadAssets, theme } from "./src/components";
-import { AuthRoutes } from "./src/components/Navigation";
+import {
+  assets as authenticationAssets,
+  AuthenticationNavigator,
+} from "./src/Authentication";
+import { containerAssets, LoadAssets, theme } from "./src/components";
+
+const assets = [...authenticationAssets, ...containerAssets];
 
 const fonts = {
   "SFProDisplay-Bold": require("./assets/fonts/SFProDisplay-Bold.ttf"),
@@ -14,21 +18,13 @@ const fonts = {
   "SFProDisplay-Regular": require("./assets/fonts/SFProDisplay-Regular.ttf"),
 };
 
-const AuthenticationStack = createStackNavigator<AuthRoutes>();
-const AuthenticationNavigator = () => {
-  return (
-    <AuthenticationStack.Navigator headerMode="none">
-      <AuthenticationStack.Screen name="Onboarding" component={Onboarding} />
-      <AuthenticationStack.Screen name="Welcome" component={Welcome} />
-    </AuthenticationStack.Navigator>
-  );
-};
-
 export default function App() {
   return (
     <ThemeProvider theme={theme}>
-      <LoadAssets {...{ fonts }}>
-        <AuthenticationNavigator />
+      <LoadAssets {...{ fonts, assets }}>
+        <SafeAreaProvider>
+          <AuthenticationNavigator />
+        </SafeAreaProvider>
       </LoadAssets>
     </ThemeProvider>
   );

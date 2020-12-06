@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleSheet, Text } from "react-native";
+import { StyleSheet } from "react-native";
 import Animated, { Extrapolate, interpolate } from "react-native-reanimated";
 
 interface Props {

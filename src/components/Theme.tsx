@@ -9,7 +9,7 @@ const fonts = {
 const theme = {
   colors: {
     primary: "#2CB9B0",
-    title: "#0C0D34",
+    secondary: "#0C0D34",
     text: "rgba(12,13,52,0.7)",
     white: "white",
     grey: "#rgba(12, 13, 52, 0.05)",
@@ -21,7 +21,7 @@ const theme = {
     l: 25,
     xl: 40,
   },
-  borderRadius: {
+  borderRadii: {
     s: 8,
     m: 16,
     l: 24,
