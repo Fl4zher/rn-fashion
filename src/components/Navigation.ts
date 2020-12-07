@@ -13,4 +13,6 @@ export type AuthRoutes = {
   Onboarding: undefined;
   Welcome: undefined;
   Login: undefined;
+  Signup: undefined;
+  ForgotPassword: undefined;
 };

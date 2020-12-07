@@ -1,12 +1,14 @@
 import React, { ReactNode } from "react";
-import { Dimensions, Image, StatusBar, StyleSheet } from "react-native";
+import { Dimensions, Image, Platform, StyleSheet } from "react-native";
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
+import Constants from "expo-constants";
 
-import theme, { Box } from "./Theme";
+import { Box, useTheme } from "./Theme";
 
 export const assets = [require("./assets/patterns/12.png")];
 
-const { width } = Dimensions.get("window");
+const { width, height: wHeight } = Dimensions.get("window");
 const aspectRatio = 300 / 300;
 const height = width * aspectRatio;
 
@@ -17,49 +19,59 @@ interface Props {
 
 const Container = ({ children, footer }: Props) => {
   const insets = useSafeAreaInsets();
+  const theme = useTheme();
+
   return (
-    <Box flex={1} backgroundColor="secondary">
-      <StatusBar barStyle="light-content" />
-      <Box backgroundColor="white">
-        <Box borderBottomLeftRadius="xl">
+    <KeyboardAwareScrollView bounces={false} scrollEnabled={false}>
+      <Box
+        height={
+          wHeight + (Platform.OS === "android" ? Constants.statusBarHeight : 0)
+        }
+        backgroundColor="secondary"
+      >
+        <Box backgroundColor="white">
+          <Box
+            borderBottomLeftRadius="xl"
+            overflow="hidden"
+            height={height * 0.41}
+          >
+            <Image
+              source={assets[0]}
+              style={{
+                width,
+                height,
+                borderBottomLeftRadius: theme.borderRadii.xl,
+              }}
+            />
+          </Box>
+        </Box>
+        <Box flex={1} overflow="hidden">
           <Image
             source={assets[0]}
             style={{
+              ...StyleSheet.absoluteFillObject,
               width,
               height,
-              borderBottomLeftRadius: theme.borderRadii.xl,
+              top: -height * 0.41,
+              backgroundColor: "white",
             }}
-            height={150}
           />
-        </Box>
-      </Box>
-      <Box flex={1} overflow="hidden">
-        <Image
-          source={assets[0]}
-          style={{
-            ...StyleSheet.absoluteFillObject,
-            width,
-            height,
-            top: -180,
-            left: 0,
-            backgroundColor: "white",
-          }}
-        />
 
-        <Box
-          flex={1}
-          borderRadius="xl"
-          borderTopLeftRadius={0}
-          backgroundColor="white"
-        >
-          {children}
+          <Box
+            flex={1}
+            borderRadius="xl"
+            borderTopLeftRadius={0}
+            backgroundColor="white"
+          >
+            {children}
+          </Box>
+        </Box>
+        <Box backgroundColor="secondary" paddingTop="m">
+          {footer}
+          <Box height={insets.bottom} />
         </Box>
       </Box>
-      <Box backgroundColor="secondary" paddingTop="m">
-        {footer}
-        <Box height={insets.bottom} />
-      </Box>
-    </Box>
+    </KeyboardAwareScrollView>
   );
 };
 

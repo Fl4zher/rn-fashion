@@ -7,8 +7,8 @@ import {
   assets as authenticationAssets,
   AuthenticationNavigator,
 } from "./src/Authentication";
-import { containerAssets, LoadAssets, theme } from "./src/components";
-
+import { containerAssets, LoadAssets } from "./src/components";
+import { theme } from "./src/components/Theme";
 const assets = [...authenticationAssets, ...containerAssets];
 
 const fonts = {
@@ -20,12 +20,12 @@ const fonts = {
 
 export default function App() {
   return (
-    <ThemeProvider theme={theme}>
-      <LoadAssets {...{ fonts, assets }}>
-        <SafeAreaProvider>
+    <SafeAreaProvider>
+      <ThemeProvider theme={theme}>
+        <LoadAssets {...{ fonts, assets }}>
           <AuthenticationNavigator />
-        </SafeAreaProvider>
-      </LoadAssets>
-    </ThemeProvider>
+        </LoadAssets>
+      </ThemeProvider>
+    </SafeAreaProvider>
   );
 }

@@ -5,6 +5,7 @@ import { Asset } from "expo-asset";
 import * as Font from "expo-font";
 import { InitialState, NavigationContainer } from "@react-navigation/native";
 import Constants from "expo-constants";
+import { StatusBar } from "expo-status-bar";
 
 const NAVIGATION_STATE_KEY = `NAVIGATION_STATE_KEY-${Constants.manifest.sdkVersion}`;
 
@@ -20,6 +21,8 @@ const usePromiseAll = (promises: Promise<void | void[]>[], cb: () => void) =>
 const useLoadAssets = (assets: number[], fonts: FontSource): boolean => {
   const [ready, setReady] = useState(false);
   usePromiseAll(
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
     [Font.loadAsync(fonts), ...assets.map((asset) => Asset.loadAsync(asset))],
     () => setReady(true)
   );
@@ -65,6 +68,7 @@ const LoadAssets = ({ assets, fonts, children }: LoadAssetsProps) => {
   }
   return (
     <NavigationContainer {...{ onStateChange, initialState }}>
+      <StatusBar style="light" />
       {children}
     </NavigationContainer>
   );
