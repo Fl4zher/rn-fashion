@@ -22,7 +22,7 @@ const ForgotPassword = ({
       initialValues: {
         email: "",
       },
-      onSubmit: (values) => console.log(values),
+      onSubmit: (values) => navigation.navigate("PasswordChanged"),
     }
   );
 

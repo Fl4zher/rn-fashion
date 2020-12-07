@@ -2,11 +2,11 @@ import React from "react";
 import { Image, Dimensions } from "react-native";
 
 const { width } = Dimensions.get("window");
-import { Box, useTheme, Text, Button } from "../../components";
-import { AuthRoutes, StackNavigationProps } from "../../components/Navigation";
+import { Box, useTheme, Text, Button } from "../components";
+import { AuthRoutes, StackNavigationProps } from "../components/Navigation";
 
 const picture = {
-  src: require("../assets/6.png"),
+  src: require("./assets/6.png"),
   width: 1024,
   height: 636,
 };
@@ -60,9 +60,12 @@ const Welcome = ({
             variant="primary"
             label="Have an account? Login"
           />
-          <Button onPress={() => {}} label="Join us, it's Free" />
           <Button
-            onPress={() => {}}
+            onPress={() => navigation.navigate("Signup")}
+            label="Join us, it's Free"
+          />
+          <Button
+            onPress={() => navigation.navigate("ForgotPassword")}
             variant="transparent"
             label="Forgot Password?"
           />
