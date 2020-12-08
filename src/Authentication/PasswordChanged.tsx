@@ -14,7 +14,7 @@ const PasswordChanged = ({
     <Container
       footer={
         <Box flexDirection="row" justifyContent="center">
-          <CloseButton onPress={() => console.log("PRESS")} />
+          <CloseButton onPress={() => navigation.navigate("Login")} />
         </Box>
       }
     >
