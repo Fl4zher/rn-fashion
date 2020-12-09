@@ -2,7 +2,7 @@ import React, { forwardRef } from "react";
 import { StyleSheet, TextInput as Input, TextInputProps } from "react-native";
 import { Feather as Icon } from "@expo/vector-icons";
 
-import { Box, useTheme } from "../../../components";
+import { Box, RoundedIcon, useTheme } from "../../../components";
 
 interface Props extends TextInputProps {
   placeholder: string;
@@ -45,22 +45,12 @@ const TextInput = forwardRef<Input, Props>(
           />
         </Box>
         {touched && (
-          <Box
-            height={SIZE}
-            width={SIZE}
-            // borderRadius="m"
+          <RoundedIcon
+            name={!error ? "check" : "x"}
+            size={SIZE}
             backgroundColor={reColor}
-            alignItems="center"
-            justifyContent="center"
-            style={{ borderRadius: SIZE / 2 }}
-          >
-            <Icon
-              name={!error ? "check" : "x"}
-              color="white"
-              size={20}
-              style={{ textAlign: "center" }}
-            />
-          </Box>
+            color="white"
+          />
         )}
       </Box>
     );

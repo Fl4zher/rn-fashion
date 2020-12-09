@@ -6,7 +6,12 @@ import Constants from "expo-constants";
 
 import { Box, useTheme } from "./Theme";
 
-export const assets = [require("./assets/patterns/12.png")];
+export const assets = [
+  require("./assets/patterns/12.png"),
+  require("./assets/patterns/8.png"),
+  require("./assets/patterns/4.png"),
+  require("./assets/patterns/2.png"),
+] as const;
 
 const { width, height: wHeight } = Dimensions.get("window");
 const aspectRatio = 300 / 300;
@@ -15,11 +20,13 @@ const height = width * aspectRatio;
 interface Props {
   children: ReactNode;
   footer: ReactNode;
+  pattern: 0 | 1 | 2 | 3;
 }
 
-const Container = ({ children, footer }: Props) => {
+const Container = ({ children, footer, pattern }: Props) => {
   const insets = useSafeAreaInsets();
   const theme = useTheme();
+  const asset = assets[pattern];
 
   return (
     <KeyboardAwareScrollView bounces={false} scrollEnabled={false}>
@@ -36,7 +43,7 @@ const Container = ({ children, footer }: Props) => {
             height={height * 0.41}
           >
             <Image
-              source={assets[0]}
+              source={asset}
               style={{
                 width,
                 height,
@@ -47,7 +54,7 @@ const Container = ({ children, footer }: Props) => {
         </Box>
         <Box flex={1} overflow="hidden">
           <Image
-            source={assets[0]}
+            source={asset}
             style={{
               ...StyleSheet.absoluteFillObject,
               width,

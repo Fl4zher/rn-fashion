@@ -22,7 +22,7 @@ const ForgotPassword = ({
       initialValues: {
         email: "",
       },
-      onSubmit: (values) => navigation.navigate("PasswordChanged"),
+      onSubmit: () => navigation.navigate("PasswordChanged"),
     }
   );
 
@@ -34,7 +34,7 @@ const ForgotPassword = ({
     />
   );
   return (
-    <Container {...{ footer }}>
+    <Container pattern={0} {...{ footer }}>
       <Box padding="xl" justifyContent="center" flex={1}>
         <Text variant="title1" textAlign="center" marginBottom="l">
           Forgot password?
