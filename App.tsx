@@ -10,9 +10,9 @@ import {
 } from "./src/Authentication";
 import { containerAssets, LoadAssets } from "./src/components";
 import { theme } from "./src/components/Theme";
-import { HomeNavigator } from "./src/Home";
+import { HomeNavigator, drawerAssets } from "./src/Home";
 import { AppRoutes } from "./src/components/Navigation";
-const assets = [...authenticationAssets, ...containerAssets];
+const assets = [...authenticationAssets, ...containerAssets, ...drawerAssets];
 
 const fonts = {
   "SFProDisplay-Bold": require("./assets/fonts/SFProDisplay-Bold.ttf"),

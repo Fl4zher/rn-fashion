@@ -1,13 +1,28 @@
 import React from "react";
-import { View, Text } from "react-native";
 
-interface Props { }
+import { Box, Header } from "../../components";
+import { HomeNavigationProps } from "../../components/Navigation";
 
-const OutfitIdeas = (props: Props) => {
+import Background from "./Background";
+import Card from "./Card";
+
+const OutfitIdeas = ({ navigation }: HomeNavigationProps<"OutfitIdeas">) => {
   return (
-    <View>
-      <Text>OutfitIdeas</Text>
-    </View>
+    <Box flex={1} backgroundColor="white">
+      <Header
+        title="Outfit Ideas"
+        left={{ icon: "menu", onPress: () => navigation.openDrawer() }}
+        right={{ icon: "shopping-bag", onPress: () => true }}
+        dark
+      />
+
+      <Box flex={1}>
+        <Background />
+        <Card position={1} />
+        <Card position={0.5} />
+        <Card position={0} />
+      </Box>
+    </Box>
   );
 };
 
