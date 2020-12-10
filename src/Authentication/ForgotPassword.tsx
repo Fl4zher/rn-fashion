@@ -4,7 +4,7 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 
 import { Box, Button, Container, Text } from "../components";
-import { AuthRoutes, StackNavigationProps } from "../components/Navigation";
+import { AuthNavigationProps } from "../components/Navigation";
 
 import Footer from "./components/Footer";
 import TextInput from "./components/Form/TextInput";
@@ -15,7 +15,7 @@ const SignupSchema = Yup.object().shape({
 
 const ForgotPassword = ({
   navigation,
-}: StackNavigationProps<AuthRoutes, "ForgotPassword">) => {
+}: AuthNavigationProps<"ForgotPassword">) => {
   const { handleChange, handleBlur, handleSubmit, errors, touched } = useFormik(
     {
       validationSchema: SignupSchema,
@@ -35,37 +35,35 @@ const ForgotPassword = ({
   );
   return (
     <Container pattern={0} {...{ footer }}>
-      <Box padding="xl" justifyContent="center" flex={1}>
-        <Text variant="title1" textAlign="center" marginBottom="l">
-          Forgot password?
-        </Text>
-        <Text variant="body" opacity={0.5} textAlign="center" marginBottom="l">
-          Enter the email address associated with your account
-        </Text>
-        <Box>
-          <Box marginBottom="m">
-            <TextInput
-              icon="mail"
-              placeholder="Enter your email"
-              onBlur={handleBlur("email")}
-              onChangeText={handleChange("email")}
-              error={errors.email}
-              touched={touched.email}
-              autoCapitalize="none"
-              autoCompleteType="email"
-              returnKeyType="go"
-              returnKeyLabel="go"
-              onSubmitEditing={() => handleSubmit()}
-            />
-          </Box>
+      <Text variant="title1" textAlign="center" marginBottom="l">
+        Forgot password?
+      </Text>
+      <Text variant="body" opacity={0.5} textAlign="center" marginBottom="l">
+        Enter the email address associated with your account
+      </Text>
+      <Box>
+        <Box marginBottom="m">
+          <TextInput
+            icon="mail"
+            placeholder="Enter your email"
+            onBlur={handleBlur("email")}
+            onChangeText={handleChange("email")}
+            error={errors.email}
+            touched={touched.email}
+            autoCapitalize="none"
+            autoCompleteType="email"
+            returnKeyType="go"
+            returnKeyLabel="go"
+            onSubmitEditing={() => handleSubmit()}
+          />
+        </Box>
 
-          <Box alignItems="center" marginTop="l">
-            <Button
-              variant="primary"
-              onPress={handleSubmit}
-              label="Reset password"
-            />
-          </Box>
+        <Box alignItems="center" marginTop="l">
+          <Button
+            variant="primary"
+            onPress={handleSubmit}
+            label="Reset password"
+          />
         </Box>
       </Box>
     </Container>

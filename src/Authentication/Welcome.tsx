@@ -1,9 +1,10 @@
 import React from "react";
 import { Image, Dimensions } from "react-native";
+import { BorderlessButton } from "react-native-gesture-handler";
 
 const { width } = Dimensions.get("window");
 import { Box, useTheme, Text, Button } from "../components";
-import { AuthRoutes, StackNavigationProps } from "../components/Navigation";
+import { AuthNavigationProps } from "../components/Navigation";
 
 const picture = {
   src: require("./assets/6.png"),
@@ -11,9 +12,7 @@ const picture = {
   height: 636,
 };
 export const assets = [picture.src];
-const Welcome = ({
-  navigation,
-}: StackNavigationProps<AuthRoutes, "Welcome">) => {
+const Welcome = ({ navigation }: AuthNavigationProps<"Welcome">) => {
   const theme = useTheme();
 
   return (
@@ -64,11 +63,13 @@ const Welcome = ({
             onPress={() => navigation.navigate("Signup")}
             label="Join us, it's Free"
           />
-          <Button
+          <BorderlessButton
             onPress={() => navigation.navigate("ForgotPassword")}
-            variant="transparent"
-            label="Forgot Password?"
-          />
+          >
+            <Text variant="button" color="secondary">
+              Forgot Password?
+            </Text>
+          </BorderlessButton>
         </Box>
       </Box>
     </Box>

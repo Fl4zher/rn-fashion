@@ -22,6 +22,10 @@ export const theme = {
     grey: "#rgba(12, 13, 52, 0.05)",
     lightGrey: "#F4F0EF",
     darkGrey: "#8A8D90",
+    orange: "#de4545",
+    yellow: "#ecc176",
+    pink: "#f756f5",
+    violet: "#51099f",
   },
   spacing: {
     s: 4,
@@ -30,6 +34,7 @@ export const theme = {
     xl: 40,
   },
   borderRadii: {
+    xs: 4,
     s: 8,
     m: 16,
     l: 24,
