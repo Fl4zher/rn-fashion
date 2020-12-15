@@ -12,29 +12,32 @@ import { containerAssets, LoadAssets } from "./src/components";
 import { HomeNavigator, drawerAssets } from "./src/Home";
 import { AppRoutes } from "./src/components/Navigation";
 import { ThemeProvider } from "./src/components/Theme";
+const assets = [...authenticationAssets, ...containerAssets, ...drawerAssets];
+
 const fonts = {
   "SFProDisplay-Bold": require("./assets/fonts/SFProDisplay-Bold.ttf"),
   "SFProDisplay-Semibold": require("./assets/fonts/SFProDisplay-Semibold.ttf"),
   "SFProDisplay-Medium": require("./assets/fonts/SFProDisplay-Medium.ttf"),
   "SFProDisplay-Regular": require("./assets/fonts/SFProDisplay-Regular.ttf"),
 };
-// const assets = [...authenticationAssets, ...containerAssets, ...drawerAssets];
-const AppStack = createStackNavigator<AppRoutes>();
+
+// const AppStack = createStackNavigator<AppRoutes>();
+
 export default function App() {
   return (
-    <SafeAreaProvider>
-      <ThemeProvider>
-        <LoadAssets>
-          <Text>TEST</Text>
-          <AppStack.Navigator>
-            <AppStack.Screen
-              name="Authentication"
-              component={AuthenticationNavigator}
-            />
-            {/* <AppStack.Screen name="Home" component={HomeNavigator} /> */}
-          </AppStack.Navigator>
-        </LoadAssets>
-      </ThemeProvider>
-    </SafeAreaProvider>
+    <Text>TEST</Text>
+    // <SafeAreaProvider>
+    //   <ThemeProvider>
+    //     <LoadAssets {...{ fonts, assets }}>
+    //       <AppStack.Navigator headerMode="none">
+    //         <AppStack.Screen
+    //           name="Authentication"
+    //           component={AuthenticationNavigator}
+    //         />
+    //         <AppStack.Screen name="Home" component={HomeNavigator} />
+    //       </AppStack.Navigator>
+    //     </LoadAssets>
+    //   </ThemeProvider>
+    // </SafeAreaProvider>
   );
 }

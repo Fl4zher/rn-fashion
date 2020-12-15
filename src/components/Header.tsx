@@ -2,8 +2,7 @@ import React from "react";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 import { Box, Text } from "./Theme";
-
-import { RoundedIconButton } from ".";
+import RoundedIconButton from "./RoundedIconButton";
 
 interface Props {
   left: {

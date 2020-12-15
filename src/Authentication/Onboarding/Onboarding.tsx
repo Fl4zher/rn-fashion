@@ -6,7 +6,10 @@ import Animated, {
   interpolate,
   multiply,
 } from "react-native-reanimated";
-import { interpolateColor, useScrollHandler } from "react-native-redash";
+import {
+  useScrollHandler,
+  interpolateColor,
+} from "react-native-redash/lib/module/v1";
 
 import { AuthNavigationProps } from "../../components/Navigation";
 import { makeStyles, useTheme } from "../../components";
@@ -119,15 +122,12 @@ const Onboarding = ({ navigation }: AuthNavigationProps<"Onboarding">) => {
     <View style={styles.container}>
       <Animated.View style={[styles.slider, { backgroundColor }]}>
         {slides.map(({ picture }, index) => {
-          const opacity = interpolate(x, {
-            inputRange: [
-              (index - 0.5) * width,
-              index * width,
-              (index + 0.5) * width,
-            ],
-            outputRange: [0, 1, 0],
-            extrapolate: Extrapolate.CLAMP,
-          });
+          const opacity = interpolate(
+            x,
+            [(index - 0.5) * width, index * width, (index + 0.5) * width],
+            [0, 1, 0],
+            Extrapolate.CLAMP
+          );
           return (
             <Animated.View key={index} style={[styles.underlay, { opacity }]}>
               <Image

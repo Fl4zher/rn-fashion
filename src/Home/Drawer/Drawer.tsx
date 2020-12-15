@@ -88,7 +88,10 @@ const Drawer = (_props: DrawerContentComponentProps<DrawerContentOptions>) => {
               icon: "x",
               onPress: () => navigation.dispatch(DrawerActions.closeDrawer()),
             }}
-            right={{ icon: "shopping-bag", onPress: () => true }}
+            right={{
+              icon: "shopping-bag",
+              onPress: () => navigation.navigate("Cart"),
+            }}
           />
         </Box>
       </Box>

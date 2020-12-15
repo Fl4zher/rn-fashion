@@ -3,7 +3,7 @@ import AsyncStorage from "@react-native-community/async-storage";
 import { AppLoading } from "expo";
 import { Asset } from "expo-asset";
 import * as Font from "expo-font";
-import { InitialState, NavigationContainer } from "@react-navigation/native";
+import { NavigationContainer } from "@react-navigation/native";
 import Constants from "expo-constants";
 import { StatusBar } from "expo-status-bar";
 
@@ -37,7 +37,9 @@ interface LoadAssetsProps {
 
 const LoadAssets = ({ assets, fonts, children }: LoadAssetsProps) => {
   const [isNavigationReady, setIsNavigationReady] = useState(!__DEV__);
-  const [initialState, setInitialState] = useState<InitialState | undefined>();
+  const [initialState, setInitialState] = useState<InitialState | undefined>(
+    undefined
+  );
   const ready = useLoadAssets(assets || [], fonts || {});
   useEffect(() => {
     const restoreState = async () => {
@@ -55,6 +57,7 @@ const LoadAssets = ({ assets, fonts, children }: LoadAssetsProps) => {
     };
 
     if (!isNavigationReady) {
+      console.log("object");
       restoreState();
     }
   }, [isNavigationReady]);
@@ -67,7 +70,7 @@ const LoadAssets = ({ assets, fonts, children }: LoadAssetsProps) => {
     return <AppLoading />;
   }
   return (
-    <NavigationContainer {...{ onStateChange, initialState }}>
+    <NavigationContainer>
       <StatusBar style="light" />
       {children}
     </NavigationContainer>
