@@ -24,21 +24,19 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }));
 
-const aspectRatio = 3;
-
 const startDate = new Date("2019-11-01").getTime();
 const numberOfMonths = 6;
 const data: Point[] = [
   {
     date: new Date("2019-11-01").getTime(),
     value: 2,
-    color: "darkGrey",
+    color: "info",
     id: 34,
   },
   {
     date: new Date("2019-12-01").getTime(),
     value: 50,
-    color: "orange",
+    color: "graph1",
     id: 435,
   },
   {
@@ -66,7 +64,7 @@ const TransactionHistory = ({
 }: HomeNavigationProps<"TransactionHistory">) => {
   const styles = useStyles();
   return (
-    <Box flex={1} backgroundColor="white">
+    <Box flex={1} backgroundColor="background">
       <Header
         left={{ icon: "menu", onPress: () => navigation.openDrawer() }}
         right={{ icon: "share", onPress: () => true }}
@@ -80,7 +78,7 @@ const TransactionHistory = ({
           alignItems="flex-end"
         >
           <Box>
-            <Text variant="header" color="darkGrey">
+            <Text variant="header" color="info">
               TOTAL SPEND
             </Text>
             <Text color="secondary" variant="title1">

@@ -1,9 +1,9 @@
 import { useTheme } from "@shopify/restyle";
 import React from "react";
 import { StyleSheet } from "react-native";
-import { RectButton } from "react-native-gesture-handler";
+import { RectButton, RectButtonProperties } from "react-native-gesture-handler";
 
-import { Text, Theme } from "./Theme";
+import { Text } from "./Theme";
 
 const styles = StyleSheet.create({
   container: {
@@ -17,20 +17,21 @@ const styles = StyleSheet.create({
 
 interface Props {
   variant: "default" | "primary";
-  label?: string;
   onPress: () => void;
+  label?: string;
+  style?: RectButtonProperties["style"];
 }
 
-const Button = ({ variant, label, onPress }: Props) => {
-  const theme = useTheme<Theme>();
+const Button = ({ variant, label, onPress, style }: Props) => {
+  const theme = useTheme();
   const backgroundColor =
-    variant === "primary" ? theme.colors.primary : theme.colors.grey;
+    variant === "primary" ? theme.colors.primary : theme.colors.background2;
 
   const color =
-    variant === "primary" ? theme.colors.white : theme.colors.secondary;
+    variant === "primary" ? theme.colors.background : theme.colors.secondary;
   return (
     <RectButton
-      style={[styles.container, { backgroundColor }]}
+      style={[styles.container, style, { backgroundColor }]}
       {...{ onPress }}
     >
       <Text variant="button" style={{ color }}>

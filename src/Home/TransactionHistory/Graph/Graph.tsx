@@ -1,6 +1,9 @@
 import React from "react";
 import { Dimensions } from "react-native";
 import moment from "moment";
+import { useIsFocused } from "@react-navigation/native";
+import { useTransition } from "react-native-redash";
+import Animated, { divide, multiply, sub } from "react-native-reanimated";
 
 import { Box, useTheme } from "../../../components";
 import { Theme } from "../../../components/Theme";
@@ -11,7 +14,7 @@ import Underlay from "./Underlay";
 const { width: wWidth } = Dimensions.get("window");
 
 const aspectRatio = 195 / 305;
-
+const AnimatedBox = Animated.createAnimatedComponent(Box);
 export interface Point {
   id: number;
   date: number;
@@ -27,6 +30,8 @@ interface Props {
 const MARGIN = "xl";
 
 const Graph = ({ data, startDate, numberOfMonths }: Props) => {
+  const isFocused = useIsFocused();
+  const transition = useTransition(isFocused, { duration: 650 });
   const theme = useTheme();
   const canvasWidth = wWidth - theme.spacing.m * 2;
   const canvasHeight = canvasWidth * aspectRatio;
@@ -52,20 +57,23 @@ const Graph = ({ data, startDate, numberOfMonths }: Props) => {
         numberOfMonths={numberOfMonths}
         step={step}
       />
-      <Box width={width} height={height}>
+      <Box style={{ width, height, overflow: "hidden" }}>
         {data.map((point) => {
           const i = Math.round(
             moment.duration(moment(point.date).diff(startDate)).asMonths()
           );
+          const totalHeight = lerp(0, height, point.value / maxY);
+          const currentHeight = multiply(totalHeight, transition);
+          const translateY = divide(sub(totalHeight, currentHeight), 2);
           return (
-            <Box
+            <AnimatedBox
               key={point.id}
               position="absolute"
               left={i * step}
               bottom={0}
               width={step}
-              height={lerp(0, height, point.value / maxY)}
-              overflow="hidden"
+              height={totalHeight}
+              style={{ transform: [{ translateY }, { scaleY: transition }] }}
             >
               <Box
                 position="absolute"
@@ -88,7 +96,7 @@ const Graph = ({ data, startDate, numberOfMonths }: Props) => {
                 backgroundColor={point.color}
                 borderRadius="m"
               />
-            </Box>
+            </AnimatedBox>
           );
         })}
       </Box>

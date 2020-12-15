@@ -10,8 +10,7 @@ import {
 import React from "react";
 import { Dimensions, Image } from "react-native";
 
-import { Box, Header, Text } from "../../components";
-import { theme } from "../../components/Theme";
+import { Box, Header, Text, useTheme } from "../../components";
 
 import DrawerItem, { DrawerItemProps } from "./DrawerItem";
 
@@ -34,25 +33,25 @@ const items: DrawerItemProps[] = [
     icon: "heart",
     label: "Favorite Outfits",
     screen: "FavoriteOutfits",
-    color: "orange",
+    color: "drawer1",
   },
   {
     icon: "user",
     label: "Edit Profile",
     screen: "EditProfile",
-    color: "yellow",
+    color: "drawer2",
   },
   {
     icon: "clock",
     label: "Transaction History",
     screen: "TransactionHistory",
-    color: "pink",
+    color: "drawer3",
   },
   {
     icon: "settings",
     label: "Notification Settings",
     screen: "NotificationSettings",
-    color: "violet",
+    color: "drawer4",
   },
   {
     icon: "log-out",
@@ -69,10 +68,11 @@ const items: DrawerItemProps[] = [
 ];
 
 const Drawer = (_props: DrawerContentComponentProps<DrawerContentOptions>) => {
+  const theme = useTheme();
   const navigation = useNavigation();
   return (
     <Box flex={1}>
-      <Box flex={0.2} backgroundColor="white">
+      <Box flex={0.2} backgroundColor="background">
         <Box
           position="absolute"
           top={0}
@@ -100,7 +100,7 @@ const Drawer = (_props: DrawerContentComponentProps<DrawerContentOptions>) => {
           left={0}
           right={0}
           bottom={0}
-          backgroundColor="white"
+          backgroundColor="background"
           borderTopLeftRadius="xl"
           //borderBottomRightRadius="xl"
           justifyContent="center"
@@ -123,8 +123,8 @@ const Drawer = (_props: DrawerContentComponentProps<DrawerContentOptions>) => {
               </Text>
             </Box>
           </Box>
-          {items.map((item) => (
-            <DrawerItem key={item.screen} {...item} />
+          {items.map((item, i) => (
+            <DrawerItem key={i} {...item} />
           ))}
         </Box>
       </Box>

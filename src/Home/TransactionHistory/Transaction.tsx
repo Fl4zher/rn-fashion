@@ -29,7 +29,7 @@ const Transaction = ({ transaction }: Props) => {
           <Text variant="title3">{`#${transaction.id}`}</Text>
         </Box>
         <Box>
-          <Text color="darkGrey">{`$${transaction.value} - ${moment(
+          <Text color="info">{`$${transaction.value} - ${moment(
             transaction.date
           ).format("DD MMMM, YYYY")}`}</Text>
         </Box>

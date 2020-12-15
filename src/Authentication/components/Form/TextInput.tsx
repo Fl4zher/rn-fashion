@@ -16,7 +16,7 @@ const TextInput = forwardRef<Input, Props>(
     const theme = useTheme();
     const SIZE = theme.borderRadii.m * 1.8;
     // eslint-disable-next-line no-nested-ternary
-    const reColor = !touched ? "darkGrey" : error ? "danger" : "primary";
+    const reColor = !touched ? "info" : error ? "danger" : "primary";
     const color = theme.colors[reColor];
     return (
       <Box
@@ -49,7 +49,7 @@ const TextInput = forwardRef<Input, Props>(
             name={!error ? "check" : "x"}
             size={SIZE}
             backgroundColor={reColor}
-            color="white"
+            color="background"
           />
         )}
       </Box>

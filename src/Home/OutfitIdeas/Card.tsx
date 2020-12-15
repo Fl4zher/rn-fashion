@@ -1,10 +1,5 @@
 import React from "react";
-import {
-  Dimensions,
-  Image,
-  ImageRequireSource,
-  StyleSheet,
-} from "react-native";
+import { Dimensions, ImageRequireSource, StyleSheet } from "react-native";
 import { PanGestureHandler } from "react-native-gesture-handler";
 import Animated, {
   add,
@@ -15,7 +10,7 @@ import { mix, mixColor, usePanGestureHandler } from "react-native-redash";
 
 import { Box } from "../../components";
 
-import { useSpring, withSpring } from "./Animations";
+import { useSpring } from "./Animations";
 
 const { width: wWidth } = Dimensions.get("window");
 const width = wWidth * 0.75;

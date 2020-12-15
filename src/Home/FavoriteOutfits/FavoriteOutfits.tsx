@@ -82,7 +82,7 @@ const FavoriteOutfits = ({
   );
 
   return (
-    <Box flex={1} backgroundColor="white">
+    <Box flex={1} backgroundColor="background">
       <Header
         title="Outfit Ideas"
         left={{ icon: "menu", onPress: () => navigation.openDrawer() }}
@@ -90,7 +90,7 @@ const FavoriteOutfits = ({
         dark
       />
 
-      <Box flex="1">
+      <Box flex={1}>
         <ScrollView
           contentContainerStyle={{
             paddingHorizontal: theme.spacing.m,

@@ -19,7 +19,7 @@ const { width } = Dimensions.get("window");
 
 const useStyles = makeStyles((theme) => ({
   container: {
-    backgroundColor: "white",
+    backgroundColor: theme.colors.background,
     flex: 1,
   },
   slider: {
@@ -32,7 +32,7 @@ const useStyles = makeStyles((theme) => ({
   },
   footerContent: {
     flex: 1,
-    backgroundColor: "white",
+    backgroundColor: theme.colors.background,
     borderTopLeftRadius: theme.borderRadii.xl,
   },
   pagination: {

@@ -1,6 +1,6 @@
 import React from "react";
 
-import { AuthRoutes, StackNavigationProps } from "../components/Navigation";
+import { AuthNavigationProps } from "../components/Navigation";
 import {
   Box,
   Button,
@@ -13,14 +13,14 @@ import {
 const SIZE = 60;
 const PasswordChanged = ({
   navigation,
-}: StackNavigationProps<AuthRoutes, "PasswordChanged">) => {
+}: AuthNavigationProps<"PasswordChanged">) => {
   return (
     <Container
       pattern={0}
       footer={
         <Box flexDirection="row" justifyContent="center">
           <RoundedIconButton
-            backgroundColor="white"
+            backgroundColor="background"
             color="secondary"
             name="x"
             size={60}

@@ -1,8 +1,10 @@
+import React, { ReactNode } from "react";
 import { ViewStyle, TextStyle, ImageStyle } from "react-native";
 import {
   createBox,
   createText,
   useTheme as useReTheme,
+  ThemeProvider as Provider,
 } from "@shopify/restyle";
 
 const fonts = {
@@ -11,21 +13,32 @@ const fonts = {
   medium: "SFProDisplay-Medium",
   semiBold: "SFProDisplay-Semibold",
 };
-export const theme = {
+
+export const palette = {
+  white: "#fff",
+  orange: "#FE5E33",
+  yellow: "#FFC641",
+  pink: "#FF87A2",
+  violet: "#442CB9",
+  green: "#2CB9B0",
+};
+
+const theme = {
   colors: {
-    primary: "#2CB9B0",
+    primary: palette.green,
     primaryLight: "#E7F9F7",
     secondary: "#0C0D34",
     danger: "#FF0058",
+    info: "#8A8D90",
     text: "rgba(12,13,52,0.7)",
-    white: "white",
-    grey: "#F4F0EF",
-    lightGrey: "#FAFAFA",
-    darkGrey: "#8A8D90",
-    orange: "#FE5E33",
-    yellow: "#FFC641",
-    pink: "#FF87A2",
-    violet: "#442CB9",
+    background: palette.white,
+    background2: "#F4F0EF",
+    graph1: palette.orange,
+    graph2: palette.yellow,
+    drawer1: palette.orange,
+    drawer2: palette.yellow,
+    drawer3: palette.pink,
+    drawer4: palette.violet,
   },
   spacing: {
     s: 4,
@@ -45,7 +58,7 @@ export const theme = {
       fontSize: 80,
       lineHeight: 80,
       fontFamily: fonts.bold,
-      color: "white",
+      color: "background",
       textAlign: "center",
     },
     title1: {
@@ -82,8 +95,15 @@ export const theme = {
       color: "secondary",
     },
   },
-  breakpoints: {},
+  breakpoints: {
+    phone: 0,
+    tablet: 768,
+  },
 };
+
+export const ThemeProvider = ({ children }: { children: ReactNode }) => (
+  <Provider theme={theme}>{children}</Provider>
+);
 
 export type Theme = typeof theme;
 export const Box = createBox<Theme>();

@@ -11,7 +11,7 @@ interface Props {
     onPress: () => void;
   };
   title: string;
-  right: {
+  right?: {
     icon: string;
     onPress: () => void;
   };
@@ -20,8 +20,8 @@ interface Props {
 
 const Header = ({ left, title, right, dark }: Props) => {
   const insets = useSafeAreaInsets();
-  const color = dark ? "secondary" : "white";
-  const backgroundColor = dark ? "lightGrey" : "secondary";
+  const color = dark ? "secondary" : "background";
+  const backgroundColor = dark ? undefined : "secondary";
   return (
     <Box
       flexDirection="row"
@@ -35,18 +35,23 @@ const Header = ({ left, title, right, dark }: Props) => {
         iconRatio={0.4}
         name={left.icon}
         onPress={left.onPress}
+        align={backgroundColor === undefined ? "flex-start" : "center"}
         {...{ color, backgroundColor }}
       />
       <Text variant="header" {...{ color }}>
         {title.toUpperCase()}
       </Text>
-      <RoundedIconButton
-        size={44}
-        iconRatio={0.4}
-        name={right.icon}
-        onPress={right.onPress}
-        {...{ color, backgroundColor }}
-      />
+      {right ? (
+        <RoundedIconButton
+          size={44}
+          iconRatio={0.4}
+          name={right.icon}
+          onPress={right.onPress}
+          {...{ color, backgroundColor }}
+        />
+      ) : (
+          <Box width={44} />
+        )}
     </Box>
   );
 };
