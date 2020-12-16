@@ -1,16 +1,15 @@
 import React, { useRef } from "react";
 import { View, StyleSheet, Dimensions, Image } from "react-native";
 import Animated, {
-  divide,
   Extrapolate,
-  interpolateNode,
-  multiply,
+  interpolate,
+  useAnimatedScrollHandler,
+  useAnimatedStyle,
+  useDerivedValue,
+  useSharedValue,
 } from "react-native-reanimated";
-import {
-  useScrollHandler,
-  interpolateColor,
-} from "react-native-redash/lib/module/v1";
 import { ScrollView } from "react-native-gesture-handler";
+import { interpolateColor } from "react-native-redash";
 
 import { AuthNavigationProps } from "../../components/Navigation";
 import { makeStyles, useTheme } from "../../components";
@@ -112,28 +111,50 @@ export const assets = slides.map((slice) => slice.picture.src);
 const Onboarding = ({ navigation }: AuthNavigationProps<"Onboarding">) => {
   const theme = useTheme();
   const styles = useStyles();
-  const scroll = useRef<ScrollView>(null);
-  const { scrollHandler, x } = useScrollHandler();
-  const backgroundColor: Animated.Node<number> = interpolateColor(x, {
-    inputRange: slides.map((_, i) => i * width),
-    outputRange: slides.map((slide) => slide.color),
+  const scroll = useRef<Animated.ScrollView>(null);
+  const x = useSharedValue(0);
+  const onScroll = useAnimatedScrollHandler({
+    onScroll: ({ contentOffset }) => {
+      x.value = contentOffset.x;
+    },
   });
 
+  const backgroundColor = useDerivedValue(() =>
+    interpolateColor(
+      x.value,
+      slides.map((_, i) => i * width),
+      slides.map((slide) => slide.color)
+    )
+  );
+
+  const slider = useAnimatedStyle(() => ({
+    backgroundColor: backgroundColor.value,
+  }));
+  const background = useAnimatedStyle(() => ({
+    backgroundColor: backgroundColor.value,
+  }));
+
+  const currentIndex = useDerivedValue(() => x.value / width);
+
+  const footerStyle = useAnimatedStyle(() => ({
+    transform: [{ translateX: -x.value }],
+  }));
   return (
     <View style={styles.container}>
-      <Animated.View style={[styles.slider, { backgroundColor }]}>
+      <Animated.View style={[styles.slider, slider]}>
         {slides.map(({ picture }, index) => {
-          const opacity = interpolateNode(x, {
-            inputRange: [
-              (index - 0.5) * width,
-              index * width,
-              (index + 0.5) * width,
-            ],
-            outputRange: [0, 1, 0],
-            extrapolate: Extrapolate.CLAMP,
-          });
+          // eslint-disable-next-line react-hooks/rules-of-hooks
+          const style = useAnimatedStyle(() => ({
+            opacity: interpolate(
+              x.value,
+              [(index - 0.5) * width, index * width, (index + 0.5) * width],
+              [0, 1, 0],
+              Extrapolate.CLAMP
+            ),
+          }));
+
           return (
-            <Animated.View key={index} style={[styles.underlay, { opacity }]}>
+            <Animated.View key={index} style={[styles.underlay, style]}>
               <Image
                 source={picture.src}
                 style={{
@@ -154,7 +175,8 @@ const Onboarding = ({ navigation }: AuthNavigationProps<"Onboarding">) => {
           decelerationRate="fast"
           showsHorizontalScrollIndicator={false}
           bounces={false}
-          {...scrollHandler}
+          onScroll={onScroll}
+          scrollEventThrottle={16}
         >
           {slides.map(({ title, picture }, index) => (
             <Slide {...{ title, picture }} right={!!(index % 2)} key={index} />
@@ -162,27 +184,24 @@ const Onboarding = ({ navigation }: AuthNavigationProps<"Onboarding">) => {
         </Animated.ScrollView>
       </Animated.View>
       <Animated.View style={styles.footer}>
-        <Animated.View
-          style={{ ...StyleSheet.absoluteFillObject, backgroundColor }}
-        />
+        <Animated.View style={[StyleSheet.absoluteFillObject, background]} />
 
         <View style={[styles.footerContent]}>
           <View style={styles.pagination}>
             {slides.map((_, index) => (
-              <Dot
-                key={index}
-                currentIndex={divide(x, width)}
-                {...{ index, x }}
-              />
+              <Dot key={index} currentIndex={currentIndex} {...{ index, x }} />
             ))}
           </View>
           <Animated.View
-            style={{
-              flexDirection: "row",
-              width: width * slides.length,
-              flex: 1,
-              transform: [{ translateX: multiply(x, -1) }],
-            }}
+            style={[
+              {
+                flexDirection: "row",
+                width: width * slides.length,
+                flex: 1,
+                transform: [{ translateX: 0 }],
+              },
+              footerStyle,
+            ]}
           >
             {slides.map(({ subtitle, description }, index) => {
               const last = index === slides.length - 1;
@@ -193,7 +212,7 @@ const Onboarding = ({ navigation }: AuthNavigationProps<"Onboarding">) => {
                     if (last) {
                       navigation.navigate("Welcome");
                     } else if (scroll.current) {
-                      scroll.current?.scrollTo({
+                      scroll.current?.getNode().scrollTo({
                         x: width * (index + 1),
                         animated: true,
                       });

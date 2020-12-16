@@ -1,42 +1,41 @@
 import React from "react";
-import { StyleSheet } from "react-native";
 import Animated, {
   Extrapolate,
-  interpolateNode,
+  interpolate,
+  useAnimatedStyle,
 } from "react-native-reanimated";
 
 interface Props {
   index: number;
-  currentIndex: Animated.Node<number>;
+  currentIndex: Animated.SharedValue<number>;
 }
 
 const Dot = ({ index, currentIndex }: Props) => {
-  const opacity = interpolateNode(currentIndex, {
-    inputRange: [index - 1, index, index + 1],
-    outputRange: [0.5, 1, 0.5],
-    extrapolate: Extrapolate.CLAMP,
-  });
-  const scale = interpolateNode(currentIndex, {
-    inputRange: [index - 1, index, index + 1],
-    outputRange: [1, 1.3, 1],
-    extrapolate: Extrapolate.CLAMP,
+  const style = useAnimatedStyle(() => {
+    const opacity = interpolate(
+      currentIndex.value,
+      [index - 1, index, index + 1],
+      [0.5, 1, 0.5],
+      Extrapolate.CLAMP
+    );
+    const scale = interpolate(
+      currentIndex.value,
+      [index - 1, index, index + 1],
+      [1, 1.3, 1],
+      Extrapolate.CLAMP
+    );
+    return {
+      backgroundColor: "#2CB9B0",
+      width: 8,
+      height: 8,
+      borderRadius: 4,
+      margin: 4,
+      opacity,
+      transform: [{ scale }],
+    };
   });
 
-  return (
-    <Animated.View
-      style={[styles.container, { opacity, transform: [{ scale }] }]}
-    />
-  );
+  return <Animated.View style={style} />;
 };
 
 export default Dot;
-
-const styles = StyleSheet.create({
-  container: {
-    backgroundColor: "#2CB9B0",
-    width: 8,
-    height: 8,
-    borderRadius: 4,
-    margin: 4,
-  },
-});
