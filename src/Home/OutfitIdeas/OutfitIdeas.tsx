@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { sub, useDerivedValue } from "react-native-reanimated";
 import { useTiming } from "react-native-redash";
 
 import { Box, Header } from "../../components";
