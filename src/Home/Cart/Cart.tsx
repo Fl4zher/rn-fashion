@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Dimensions, StyleSheet } from "react-native";
+import { StyleSheet } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
 import Svg, { Path } from "react-native-svg";
 
@@ -7,9 +7,9 @@ import { aspectRatio, Box, Header, Text, useTheme } from "../../components";
 import { HomeNavigationProps } from "../../components/Navigation";
 
 import CartContainer from "./CartContainer";
+import Checkout from "./Checkout";
 import Item from "./Item";
 
-const { width } = Dimensions.get("window");
 const height = 100 * aspectRatio;
 const d = "M 0 0 A 50 50 0 0 0 50 50 H 325 A 50 50 0 0 1 375 100 V 0 Z";
 
@@ -19,7 +19,7 @@ const Cart = ({ navigation }: HomeNavigationProps<"Cart">) => {
   const [items, setItems] = useState(defaultItems);
   const theme = useTheme();
   return (
-    <CartContainer>
+    <CartContainer SecondChild={Checkout}>
       <Box>
         <Box backgroundColor="primary">
           <Header
