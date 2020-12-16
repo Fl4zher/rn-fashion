@@ -1,7 +1,7 @@
 import React from "react";
 import { Image } from "react-native";
 
-import { BorderlessTap, Box, Text } from "../../components";
+import { Box, Text } from "../../components";
 
 import CardLayout from "./CardLayout";
 
