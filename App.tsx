@@ -2,14 +2,13 @@ import "react-native-gesture-handler";
 import * as React from "react";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { createStackNavigator } from "@react-navigation/stack";
-import { Text } from "react-native";
 
 import {
   assets as authenticationAssets,
   AuthenticationNavigator,
 } from "./src/Authentication";
-import { containerAssets, LoadAssets } from "./src/components";
-import { HomeNavigator, drawerAssets } from "./src/Home";
+import { LoadAssets } from "./src/components";
+import { HomeNavigator, assets as homeAssets } from "./src/Home";
 import { AppRoutes } from "./src/components/Navigation";
 import { ThemeProvider } from "./src/components/Theme";
 const fonts = {
@@ -18,20 +17,19 @@ const fonts = {
   "SFProDisplay-Medium": require("./assets/fonts/SFProDisplay-Medium.ttf"),
   "SFProDisplay-Regular": require("./assets/fonts/SFProDisplay-Regular.ttf"),
 };
-// const assets = [...authenticationAssets, ...containerAssets, ...drawerAssets];
+const assets = [...authenticationAssets, ...homeAssets];
 const AppStack = createStackNavigator<AppRoutes>();
 export default function App() {
   return (
     <SafeAreaProvider>
       <ThemeProvider>
-        <LoadAssets>
-          <Text>TEST</Text>
-          <AppStack.Navigator>
+        <LoadAssets fonts={fonts} assets={assets}>
+          <AppStack.Navigator headerMode="none">
             <AppStack.Screen
               name="Authentication"
               component={AuthenticationNavigator}
             />
-            {/* <AppStack.Screen name="Home" component={HomeNavigator} /> */}
+            <AppStack.Screen name="Home" component={HomeNavigator} />
           </AppStack.Navigator>
         </LoadAssets>
       </ThemeProvider>

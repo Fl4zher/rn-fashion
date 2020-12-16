@@ -3,14 +3,17 @@ import AsyncStorage from "@react-native-community/async-storage";
 import { AppLoading } from "expo";
 import { Asset } from "expo-asset";
 import * as Font from "expo-font";
-import { NavigationContainer } from "@react-navigation/native";
+import { InitialState, NavigationContainer } from "@react-navigation/native";
 import Constants from "expo-constants";
 import { StatusBar } from "expo-status-bar";
 
 const NAVIGATION_STATE_KEY = `NAVIGATION_STATE_KEY-${Constants.manifest.sdkVersion}`;
 
 export type FontSource = Parameters<typeof Font.loadAsync>[0];
-const usePromiseAll = (promises: Promise<void | void[]>[], cb: () => void) =>
+const usePromiseAll = (
+  promises: Promise<void | void[] | Asset[]>[],
+  cb: () => void
+) =>
   useEffect(() => {
     (async () => {
       await Promise.all(promises);
@@ -70,7 +73,7 @@ const LoadAssets = ({ assets, fonts, children }: LoadAssetsProps) => {
     return <AppLoading />;
   }
   return (
-    <NavigationContainer>
+    <NavigationContainer {...{ onStateChange, initialState }}>
       <StatusBar style="light" />
       {children}
     </NavigationContainer>

@@ -11,7 +11,11 @@ import {
   stopClock,
   useValue,
 } from "react-native-reanimated";
-import { snapPoint, useClock, WithSpringParams } from "react-native-redash";
+import {
+  snapPoint,
+  useClock,
+  WithSpringParams,
+} from "react-native-redash/lib/module/v1";
 
 export const useSpring = ({
   value,

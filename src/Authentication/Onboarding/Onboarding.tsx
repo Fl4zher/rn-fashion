@@ -3,13 +3,14 @@ import { View, StyleSheet, Dimensions, Image } from "react-native";
 import Animated, {
   divide,
   Extrapolate,
-  interpolate,
+  interpolateNode,
   multiply,
 } from "react-native-reanimated";
 import {
   useScrollHandler,
   interpolateColor,
 } from "react-native-redash/lib/module/v1";
+import { ScrollView } from "react-native-gesture-handler";
 
 import { AuthNavigationProps } from "../../components/Navigation";
 import { makeStyles, useTheme } from "../../components";
@@ -111,7 +112,7 @@ export const assets = slides.map((slice) => slice.picture.src);
 const Onboarding = ({ navigation }: AuthNavigationProps<"Onboarding">) => {
   const theme = useTheme();
   const styles = useStyles();
-  const scroll = useRef<Animated.ScrollView>(null);
+  const scroll = useRef<ScrollView>(null);
   const { scrollHandler, x } = useScrollHandler();
   const backgroundColor: Animated.Node<number> = interpolateColor(x, {
     inputRange: slides.map((_, i) => i * width),
@@ -122,12 +123,15 @@ const Onboarding = ({ navigation }: AuthNavigationProps<"Onboarding">) => {
     <View style={styles.container}>
       <Animated.View style={[styles.slider, { backgroundColor }]}>
         {slides.map(({ picture }, index) => {
-          const opacity = interpolate(
-            x,
-            [(index - 0.5) * width, index * width, (index + 0.5) * width],
-            [0, 1, 0],
-            Extrapolate.CLAMP
-          );
+          const opacity = interpolateNode(x, {
+            inputRange: [
+              (index - 0.5) * width,
+              index * width,
+              (index + 0.5) * width,
+            ],
+            outputRange: [0, 1, 0],
+            extrapolate: Extrapolate.CLAMP,
+          });
           return (
             <Animated.View key={index} style={[styles.underlay, { opacity }]}>
               <Image
@@ -189,9 +193,10 @@ const Onboarding = ({ navigation }: AuthNavigationProps<"Onboarding">) => {
                     if (last) {
                       navigation.navigate("Welcome");
                     } else if (scroll.current) {
-                      scroll.current
-                        ?.getNode()
-                        .scrollTo({ x: width * (index + 1), animated: true });
+                      scroll.current?.scrollTo({
+                        x: width * (index + 1),
+                        animated: true,
+                      });
                     }
                   }}
                   last={last}

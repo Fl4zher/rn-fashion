@@ -20,7 +20,6 @@ interface Props {
 const Header = ({ left, title, right, dark }: Props) => {
   const insets = useSafeAreaInsets();
   const color = dark ? "secondary" : "background";
-  const backgroundColor = dark ? undefined : "secondary";
   return (
     <Box
       flexDirection="row"
@@ -34,8 +33,8 @@ const Header = ({ left, title, right, dark }: Props) => {
         iconRatio={0.4}
         name={left.icon}
         onPress={left.onPress}
-        align={backgroundColor === undefined ? "flex-start" : "center"}
-        {...{ color, backgroundColor }}
+        align={"center"}
+        {...{ color }}
       />
       <Text variant="header" {...{ color }}>
         {title.toUpperCase()}
@@ -46,7 +45,7 @@ const Header = ({ left, title, right, dark }: Props) => {
           iconRatio={0.4}
           name={right.icon}
           onPress={right.onPress}
-          {...{ color, backgroundColor }}
+          {...{ color }}
         />
       ) : (
           <Box width={44} />

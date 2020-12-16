@@ -19,16 +19,16 @@ const HomeNavigator = () => (
     drawerContent={(props) => <CustomDrawer {...props} />}
     drawerStyle={{ width: DRAWER_WIDTH }}
   >
-    <Drawer.Screen name="OutfitIdeas" component={() => <Text>TEST</Text>} />
-    {/* <Drawer.Screen name="EditProfile" component={EditProfile} />
+    <Drawer.Screen name="EditProfile" component={EditProfile} />
     <Drawer.Screen name="OutfitIdeas" component={OutfitIdeas} />
     <Drawer.Screen name="FavoriteOutfits" component={FavoriteOutfits} />
     <Drawer.Screen name="TransactionHistory" component={TransactionHistory} />
     <Drawer.Screen
       name="NotificationSettings"
       component={NotificationSettings}
-    /> */}
+    />
+    <Drawer.Screen name="Cart" component={Cart} />
   </Drawer.Navigator>
 );
 
-export { HomeNavigator, assets as drawerAssets };
+export { HomeNavigator, assets };

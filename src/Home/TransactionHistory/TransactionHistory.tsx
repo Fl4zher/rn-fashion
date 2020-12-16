@@ -4,7 +4,6 @@ import { ScrollView } from "react-native-gesture-handler";
 
 import {
   Box,
-  ContentFooter,
   Header,
   makeStyles,
   ScrollableContent,
